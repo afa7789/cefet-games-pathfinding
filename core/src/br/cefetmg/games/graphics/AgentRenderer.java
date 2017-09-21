@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Um renderizador de agentes que usa uma sprite animada com 8 direções.
@@ -35,6 +36,7 @@ public class AgentRenderer {
     }
 
     public void render(Agent agent) {
+        Vector2 OldPosition= new Vector2(0,0);
         sprite.update(Gdx.graphics.getDeltaTime());
         sprite.setCenter(agent.position.coords.x, (int) agent.position.coords.y);
         sprite.setFacing(agent.getFacing());
@@ -63,8 +65,12 @@ public class AgentRenderer {
             Gdx.gl20.glDisable(GL20.GL_SCISSOR_TEST);
         } else {
             batch.begin();
+            //OldPosition = new Vector2(sprite.getX(),sprite.getY());
+            //sprite.setPosition(sprite.getX(), sprite.getY() + 20);
+            sprite.translateY(20);
             sprite.draw(batch);
             batch.end();
+            //sprite.setPosition(OldPosition.x, OldPosition.y);
         }
     }
 }
