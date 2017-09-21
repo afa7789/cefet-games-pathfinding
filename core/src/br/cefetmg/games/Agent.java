@@ -108,10 +108,29 @@ public class Agent {
  
             @Override 
             public float estimate(TileNode n, TileNode n1) { 
-                throw new UnsupportedOperationException("Deveria ter retornado "
-                        + "um valor para a heurística no arquivo "
-                        + "Agent.java:107, mas o professor resolveu explodir "
-                        + "o programa e deixar você consertar ;)"); 
+                //Dijkstra:::
+                //return 0;
+                
+                //Euclidiano Inadmissivel
+                //return n.getPosition().dst(n1.getPosition());
+                
+                //Euclidiano:::Experimental c/ boolean de water
+                //if(n.isWater() || n1.isWater())
+                //    return 9 * (n.getPosition().dst(n1.getPosition())/LevelManager.tileWidth);
+                //else
+                //    return (n.getPosition().dst(n1.getPosition())/LevelManager.tileWidth);
+                
+                //Euclidiano:::Puro
+                Vector2 v1,v2;
+                v1 = new Vector2(n.getPosition().x/LevelManager.tileWidth,n.getPosition().x/LevelManager.tileHeight);
+                v2 = new Vector2(n1.getPosition().x/LevelManager.tileWidth,n1.getPosition().x/LevelManager.tileHeight);
+                float CustoEuclidiano=v1.dst(v2);
+                //return CustoEuclidiano;
+                //Manhattan Diagonal
+                Vector2 Diagonal = new Vector2(Math.abs(v1.x - v2.x), Math.abs(v1.y- v2.y));
+                return (float) (CustoEuclidiano * (Diagonal.x + Diagonal.y) + ((Math.sqrt(2)-2)*(CustoEuclidiano)*Math.min(Diagonal.x,Diagonal.y)));
+                
+                
             } 
         }, path); 
         pathIterator = path.iterator();
